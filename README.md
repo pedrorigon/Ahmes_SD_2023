@@ -8,9 +8,9 @@ Este relatório tem como objetivo fornecer uma descrição detalhada da implemen
 - `A unidade de controle:` descreve a lógica de controle da CPU e inclui todas as decisões sobre as operações que devem ser executadas.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/61710159/221964428-ab5f54b0-18b8-4294-9b18-f229bb222474.jpeg" width="600px" />
+<img src="https://user-images.githubusercontent.com/61710159/221974005-c9dc32c0-9e8b-458a-b591-bb94f2c29842.png" width="1000px" />
 
-Figura 1 : Modelo Estrela feito utilizando o Power BI.
+Figura 1 : Descição dos Componentes do Processador Ahmes.
 </div>
 
 # Descrição do Datapath:
@@ -69,7 +69,16 @@ A UC é implementada como uma FSM com 8 estados. Cada estado representa uma etap
 
 O processo principal da UC consiste em ler a entrada atual e decidir qual será o próximo estado e as saídas. No estado inicial, S0, a UC aguarda a recepção do reset para inicializar. Em seguida, a UC entra em um estado determinado pelo tipo de instrução recebida e pela condição das flags.
 
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221974237-17446c56-a5a3-4f26-b5bb-0fb4919a1a7c.png" width="600px" />
 
+</div>
+
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221974790-a537c598-61ab-451e-bc39-01e69ad4619f.png" width="600px" />
+
+</div>
 
 |Tempo |SHR |SHL |ROR |ROL |SUB |
 | - | - | - | - | - | - |
@@ -119,21 +128,17 @@ O processo principal da UC consiste em ler a entrada atual e decidir qual será 
 |T5 |carga\_PC, Goto t0|![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.032.png)|
 |T6 |||
 |T7 |![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.033.png)|![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.034.png)|
-Descri ªo do Decodificador: 
 
-O decodificador de instru ıes Ø responsÆvel por identificar a instru ªo a ser executada a partir da sa da do Registrador de Instru ªo (RI). Ele decodifica a sa da do RI, sinalizando com o valor 1 a flag da instru ªo correta. As entradas sªo a sa da do RI, enquanto as sa das sªo as flags de instru ıes, como NOP, STA, LDA, ADD, 
+# Descrição do Decodificador: 
 
-OR, AND, NOT, SUB, JMP, JN, JP, JV, JNV, JZ, JNZ, JC, JNC, JB, JNB, SHR, SHL, ROR, ROL e HLT.  
+O decodificador de instruções é responsável por identificar a instrução a ser executada a partir da sa da do Registrador de Instrução (RI). Ele decodifica a saída do RI, sinalizando com o valor 1 a flag da instrução correta. As entradas são a sa da do RI, enquanto as saídas são as flags de instruções, como NOP, STA, LDA, ADD, OR, AND, NOT, SUB, JMP, JN, JP, JV, JNV, JZ, JNZ, JC, JNC, JB, JNB, SHR, SHL, ROR, ROL e HLT.  
 
-A l gica do decodificador Ø implementada com um processo que observa a sa da do RI. Todas as flags de instru ıes sªo inicializadas com o valor 0 e, em seguida, o processo verifica a sa da do RI para identificar a instru ªo correta. Se a 
+A lógica do decodificador é implementada com um processo que observa a saída do RI. Todas as flags de instruções são inicializadas com o valor 0 e, em seguida, o processo verifica a saída do RI para identificar a instrução correta. Se a saída  do  RI  corresponder  a uma  das  opções  previamente  definidas,  a  flag  da instrução correspondente é sinalizada com o valor 1. 
 
-sa da  do  RI  corresponder  a uma  das  op ıes  previamente  definidas,  a  flag  da instru ªo correspondente Ø sinalizada com o valor 1. 
-
-Tabela de Instru ıes: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.035.png)
+# Tabela de Instruções: 
 
 
-
-|C di go em binÆrio |Instru  ªo |
+|Código em binário |Instrução |
 | - | - |
 |00000000 |NOP |
 |00010000 |STA |
@@ -161,99 +166,81 @@ Tabela de Instru ıes: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.035
 |11111111 |HLT |
 
 
-Opera ªo de multiplica ªo: (4 x 2 = 8)![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.036.png)
+# Operação de multiplicação: (4 x 2 = 8)
 
-NOP 
-
-LDA 29
-STA 33
-LDA 35 
-STA 30 
-LDA 30 
-ADD 28
+NOP  
+LDA 29  
+STA 33  
+LDA 35  
+STA 30  
+LDA 30  
+ADD 28  
 STA 30  
 LDA 33  
-SUB 34
-STA 33
-JZ 25 
-JMP 9 
-HLT 
-0 
-0
-4
-2 
-0
-0 
-0 
-0
-1
-0 
+SUB 34  
+STA 33  
+JZ 25  
+JMP 9  
+HLT  
 
-Assembly do arquivo .coe : ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.037.png)
+### Assembly do arquivo .coe : 
 
 MEMORY\_INITIALIZATION\_RADIX= 10; MEMORY\_INITIALIZATION\_VECTOR= 0, 32, 29, 16, 33, 32, 35, 16, 30, 32, 30, 48, 28, 16, 30, 32, 33, 112, 34, 16, 33, 160, 25, 128, 9, 240, 0, 0, 4, 2, 0, 0, 0, 0,  1, 0; 
 
-`   `Valor vermelho: Operando 1 
 
-`   `Valor azul: Operando 2 
+# Operação de SHL e Decrementador com desvio (JZ) e (JMP):
 
-`   `Valor Roxo: Constante subtratora 
+NOP  
+NOP  
+NOP  
+LDA 24  
+SHL  
+STA 25  
+LDA 24  
+SUB 26  
+LDA 24  
+JZ 20  
+JMP 8  
+STA 24   
+NOP  
+HLT  
 
-Simula ıes sem e com atraso com detalhes e flechas mostrando in cio meio e final do programa e resultados: 
-
-Sem Atraso: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.038.png)
-
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.039.jpeg)
-
-Com Atraso: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.040.png)
-
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.041.jpeg)
-
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.042.jpeg)
-
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.043.jpeg)
-
-Opera ªo de SHL e Decrementador com desvio (JZ) e (JMP):![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.044.png)
-
-NOP 
-NOP 
-NOP 
-LDA 24
-SHL
-STA 25
-LDA 24
-SUB 26 
-LDA 24 
-JZ 20
-JMP 8 
-STA 24  
-NOP 
-HLT 
-10
-0 
-1
-
-Assembly do arquivo .coe : ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.045.png)
+Assembly do arquivo .coe : 
 
 MEMORY\_INITIALIZATION\_RADIX= 10; MEMORY\_INITIALIZATION\_VECTOR= 0, 0, 0, 32, 24, 225, 16, 25, 32, 24, 112, 26, 16, 24, 32, 24, 160, 20, 128, 8, 16, 24, 0, 240, 10, 0, 1; 
 
-Sem Atraso: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.046.png)
 
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.047.jpeg)
+# Simulações sem e com atraso com detalhes e flechas mostrando inicio meio e final do programa e resultados: 
 
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.048.jpeg)
+### Sem Atraso:
 
-Com Atraso: ![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.049.png)
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221975504-b5112b7c-34f0-431e-b074-203260282fa5.png" width="1000px" />
 
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.050.jpeg)
-
-![](Aspose.Words.4332f374-fb20-4d0b-8a48-be05b6f828d1.051.jpeg)
-
-Dados de Ærea, tempo de execu ªo em ciclos de rel gio e tempo em segundos deve ser apresentado dado um determinado clock usado: 
+</div>
 
 
+### Atraso: 
 
-|Programa |Nœmero de Instru ıes Executadas |<p>Tempo de execu ªo em </p><p># de ciclos de rel gio (c.c.) </p>|Tempo de execu ªo em Segundos (Neander operando a 50 MHz) |
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221976013-0061d0be-52ce-4bff-aff8-07d29c99f2fe.png" width="1000px" />
+
+</div>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221976292-c83f925d-07ef-4429-8c3d-2c5d70f997a8.png" width="1000px" />
+
+</div>
+
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/61710159/221976483-532a87fa-2935-4bba-9066-e1e4a158c17d.png" width="1000px" />
+
+</div>
+
+# Dados de área, tempo de execução em ciclos de relógio e em ns deve ser apresentado dado um determinado clock usado: 
+
+|Programa |Nœmero de Instruções Executadas |<p>Tempo de execução em ciclos de relógio (c.c.) </p>|Tempo de execução em Segundos (Ahmes operando a 50 MHz) |
 | - | :-: | - | :-: |
-|Multiplica ªo por somas sucessivas |19 |148 |1480 ns |
+|Multiplicaço por somas sucessivas |19 |148 |1480 ns |
 |Programa com SUB e SHL |64 |454 |4540 ns |
